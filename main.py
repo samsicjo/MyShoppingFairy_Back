@@ -12,6 +12,7 @@ origins = [
     "http://localhost",
     "http://localhost:8000", # 백엔드 포트 (FastAPI 자체)
     "http://localhost:3000", # 프론트엔드 포트 (Next.js/React 등)
+    "https://restapi--myshoppingfairy.netlify.app"
     # 여기에 프론트엔드가 실행되는 정확한 URL을 추가하세요.
 ]
 
