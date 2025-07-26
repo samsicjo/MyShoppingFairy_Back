@@ -159,7 +159,16 @@ CROWLING_WORKER_PATH = os.path.join(os.path.dirname(__file__), 'crowling_worker.
 # logger = logging.getLogger(__name__)
 
 
-
+def close_popup_if_exists(wd):
+    try:
+        for _ in range(3):
+            close_btns = wd.find_elements(By.CSS_SELECTOR, "button[aria-label='Close Message'], .ab-close-button")
+            for btn in close_btns:
+                if btn.is_displayed():
+                    btn.click()
+                    time.sleep(0.5)
+    except Exception:
+        pass  # 실패해도 무시    
 
 
 def _run_crowling_worker_process(item_data_json: str, user_style_json: str, filter_value: int):
@@ -251,6 +260,8 @@ def crowling_item_snap(product_id):
         if len(scraped_images) < 3:
             logger.info("Less than 3 images found, moving to style reviews.")
             try:
+                # 스타일 탭 클릭 전 팝업 닫기 시도
+                close_popup_if_exists(wd)
                 # '스타일' 텍스트를 포함하는 버튼 클릭
                 style_button = wait.until(
                     EC.element_to_be_clickable((By.XPATH, "//*[contains(@class, 'GoodsReviewTabGroup__TabItemWrapper') and contains(., '스타일')]"))
