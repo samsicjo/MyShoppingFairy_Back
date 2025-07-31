@@ -34,7 +34,7 @@ logger.addHandler(consoleHandler)
 
 # Chrome 옵션 설정 (크롤링 성능 최적화)
 chrome_options = Options()
-chrome_options.add_argument('--headless')  # 브라우저 창 숨기기 (백그라운드 실행)
+#chrome_options.add_argument('--headless')  # 브라우저 창 숨기기 (백그라운드 실행)
 chrome_options.add_argument('--no-sandbox')  # 샌드박스 비활성화 (보안 우회)
 chrome_options.add_argument('--disable-dev-shm-usage')  # 공유 메모리 사용 비활성화
 chrome_options.add_argument('--disable-gpu')  # GPU 가속 비활성화 (안정성 향상)

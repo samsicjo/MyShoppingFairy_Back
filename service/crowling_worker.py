@@ -28,7 +28,7 @@ logger.addHandler(consoleHandler)
 
 # Chrome 옵션 설정 (크롤링 성능 최적화)
 chrome_options = Options()
-chrome_options.add_argument('--headless')  # 브라우저 창 숨기기 (백그라운드 실행)
+#chrome_options.add_argument('--headless')  # 브라우저 창 숨기기 (백그라운드 실행)
 chrome_options.add_argument('--no-sandbox')  # 샌드박스 비활성화 (보안 우회)
 chrome_options.add_argument('--disable-dev-shm-usage')  # 공유 메모리 사용 비활성화
 chrome_options.add_argument('--disable-gpu')  # GPU 가속 비활성화 (안정성 향상)
@@ -207,7 +207,7 @@ def extract_price_info(container):
     Returns:
         int: 정규화된 가격 (원 단위)
     """
-    price_container = container.find('div', class_='sc-hKDTPf sc-fmZSGO fGOKsY fCqHUk')
+    price_container = container.find('div', class_='sc-hvigdm sc-fhHczv cdDlB hWfGZu')
     if not price_container:
         return 0
     
@@ -273,7 +273,7 @@ def extract_product_info(container) -> item_info_response:
         link = product_links[0]
         product_id = int(link.get('data-item-id'))
         # 상품명을 정확한 위치에서 찾기
-        product_name_element = container.find('span', class_='text-body_13px_reg sc-dYOLZc sc-hoLldG kpFgRS bNmpOr font-pretendard')
+        product_name_element = container.find('span', class_='text-body_13px_reg sc-dTvVRJ sc-hjsuWn fFdbCM bvYxOj font-pretendard')
         if product_name_element:
             product_name = product_name_element.get_text(strip=True)
         else:
@@ -310,7 +310,7 @@ def process_crawling_results(soup, category):
     Returns:
         list: 처리된 상품 정보 리스트
     """
-    product_containers = soup.find_all('div', class_="sc-igtioI eSJwIO")
+    product_containers = soup.find_all('div', class_="sc-ibashp dYKQDH")
     logger.info(f"\n=== {category} 카테고리 상품 목록 ===")
     logger.info(f"총 {len(product_containers)}개의 상품 컨테이너를 찾았습니다.")
     
@@ -367,7 +367,7 @@ def crowling_item_info(item, user_style, filter: int):
         wait = WebDriverWait(wd, 10)
         try:
             # 상품 컨테이너가 로드될 때까지 대기
-            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.sc-igtioI.eSJwIO")))
+            wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.sc-ibashp dYKQDH")))
         except TimeoutException:
             logger.info("상품 컨테이너를 찾을 수 없습니다. 기본 대기 시간 사용")
             time.sleep(3)  # 기본 대기 시간
